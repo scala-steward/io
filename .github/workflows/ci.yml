@@ -27,7 +27,7 @@ jobs:
             java: 21
             jobtype: 2
           - os: macos-latest
-            java: 8
+            java: 11
             jobtype: 2
           - os: windows-latest
             java: 8
@@ -42,6 +42,12 @@ jobs:
         distribution: temurin
         java-version: "${{ matrix.java }}"
         cache: sbt
+    - if: ${{ matrix.os == 'macos-latest' }}
+      run: |
+        mkdir -p "$HOME/bin/"
+        curl -sL https://raw.githubusercontent.com/sbt/sbt/v1.9.9/sbt > "$HOME/bin/sbt"
+        export PATH="$PATH:$HOME/bin"
+        chmod +x "$HOME/bin/sbt"
     - name: Build and test (1)
       if: ${{ matrix.jobtype == 1 }}
       shell: bash
