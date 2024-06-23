@@ -16,21 +16,27 @@ jobs:
         include:
           - os: ubuntu-latest
             java: 8
+            distribution: zulu
             jobtype: 1
           - os: ubuntu-latest
             java: 11
+            distribution: temurin
             jobtype: 2
           - os: ubuntu-latest
             java: 17
+            distribution: temurin
             jobtype: 2
           - os: ubuntu-latest
             java: 21
+            distribution: temurin
             jobtype: 2
           - os: macos-latest
             java: 11
+            distribution: temurin
             jobtype: 2
           - os: windows-latest
             java: 8
+            distribution: zulu
             jobtype: 2
     runs-on: ${{ matrix.os }}
     steps:
@@ -39,15 +45,11 @@ jobs:
     - name: Setup JDK
       uses: actions/setup-java@v4
       with:
-        distribution: temurin
+        distribution: "${{ matrix.distribution }}"
         java-version: "${{ matrix.java }}"
         cache: sbt
-    - if: ${{ matrix.os == 'macos-latest' }}
-      run: |
-        mkdir -p "$HOME/bin/"
-        curl -sL https://raw.githubusercontent.com/sbt/sbt/v1.9.9/sbt > "$HOME/bin/sbt"
-        export PATH="$PATH:$HOME/bin"
-        chmod +x "$HOME/bin/sbt"
+    - name: Setup sbt
+      uses: sbt/setup-sbt@v1
     - name: Build and test (1)
       if: ${{ matrix.jobtype == 1 }}
       shell: bash
