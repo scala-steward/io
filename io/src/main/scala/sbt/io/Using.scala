@@ -12,7 +12,20 @@
 package sbt
 package io
 
-import java.io._
+import java.io.{
+  BufferedInputStream,
+  BufferedOutputStream,
+  BufferedReader,
+  BufferedWriter,
+  File,
+  FileInputStream,
+  FileOutputStream,
+  IOException,
+  InputStream,
+  InputStreamReader,
+  OutputStream,
+  OutputStreamWriter,
+}
 import java.net.URL
 import java.nio.charset.Charset
 import java.util.jar.{ JarFile, JarInputStream, JarOutputStream }
