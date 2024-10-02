@@ -82,7 +82,6 @@ val io = (project in file("io"))
     libraryDependencies ++= {
       Vector(scalaCompiler.value % Test, scalaCheck % Test, scalatest % Test)
     } ++ Vector(swovalFiles),
-    libraryDependencies ++= Seq(jna, jnaPlatform),
     Test / fork := System.getProperty("sbt.test.fork", "false") == "true",
     Test / testForkedParallel := true,
     Compile / generateContrabands / sourceManaged := baseDirectory.value / "src" / "main" / "contraband-scala",
