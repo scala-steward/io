@@ -211,8 +211,8 @@ class FileTreeRepositorySpec extends AnyFlatSpec with Matchers {
         c.ls(dir.toGlob / RecursiveGlob).toSet shouldBe (files ++ subdirs).toSet
       }
 
-    // This is failing on GitHub Action
-    /*
+      // This is failing on GitHub Action
+      /*
       withThread("file-deletion-thread") {
         subdirs.foreach(p => IO.delete(p.toFile))
       } {
@@ -221,7 +221,7 @@ class FileTreeRepositorySpec extends AnyFlatSpec with Matchers {
         }
         c.ls(dir.toGlob / AnyPath) shouldBe Symbol("empty")
       }
-     */
+       */
     }
   }
 
