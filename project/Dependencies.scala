@@ -11,7 +11,7 @@ object Dependencies {
     "org.scala-lang" % "scala-compiler" % v
   }
 
-  val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
+  val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.1"
   val scalatest = "org.scalatest" %% "scalatest" % "3.2.16"
   val swovalFiles = "com.swoval" % "file-tree-views" % "2.1.12"
 }
