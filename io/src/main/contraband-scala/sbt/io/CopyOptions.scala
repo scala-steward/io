@@ -1,5 +1,5 @@
 /**
- * This code is generated using [[https://www.scala-sbt.org/contraband/ sbt-contraband]].
+ * This code is generated using [[https://www.scala-sbt.org/contraband]].
  */
 
 // DO NOT EDIT MANUALLY
@@ -30,7 +30,7 @@ final class CopyOptions private (
   override def toString: String = {
     "CopyOptions(" + overwrite + ", " + preserveLastModified + ", " + preserveExecutable + ")"
   }
-  private[this] def copy(overwrite: Boolean = overwrite, preserveLastModified: Boolean = preserveLastModified, preserveExecutable: Boolean = preserveExecutable): CopyOptions = {
+  private def copy(overwrite: Boolean = overwrite, preserveLastModified: Boolean = preserveLastModified, preserveExecutable: Boolean = preserveExecutable): CopyOptions = {
     new CopyOptions(overwrite, preserveLastModified, preserveExecutable)
   }
   def withOverwrite(overwrite: Boolean): CopyOptions = {
