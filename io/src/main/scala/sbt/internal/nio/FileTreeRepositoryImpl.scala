@@ -142,7 +142,7 @@ private[sbt] class FileTreeRepositoryImpl[T] extends FileTreeRepository[FileAttr
   }
   private[this] def throwIfClosed(method: String): Unit =
     if (closed.get()) {
-      val ex = new IllegalStateException(s"Tried to invoke $method on closed repostitory $this")
+      val ex = new IllegalStateException(s"Tried to invoke $method on closed repository $this")
       ex.printStackTrace()
       throw ex
     }
