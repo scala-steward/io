@@ -767,7 +767,7 @@ object IO {
             os.closeEntry()
 
             (os, "jar")
-          case None => (new ZipOutputStream(fileOut), "zip")
+          case None => (new ZipOutputStream(fileOut, defaultCharset), "zip")
         }
       try {
         f(zipOut)
