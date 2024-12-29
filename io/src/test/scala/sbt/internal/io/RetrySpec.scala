@@ -14,11 +14,9 @@ package sbt.internal.io
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicInteger
 
-import org.scalatest.flatspec.AnyFlatSpec
-
-final class RetrySpec extends AnyFlatSpec {
+object RetrySpec extends verify.BasicTestSuite {
   private val noExcluded: List[Class[? <: IOException]] = List[Class[? <: IOException]]()
-  "retry" should "throw first exception after number of failures" in {
+  test("retry should throw first exception after number of failures") {
     val i = new AtomicInteger()
     def throww(): Any = throw new IOException(i.incrementAndGet().toString)
     try {
@@ -31,7 +29,7 @@ final class RetrySpec extends AnyFlatSpec {
     }
   }
 
-  "retry" should "throw recover" in {
+  test("retry should throw recover") {
     for (recoveryStep <- (1 to 14)) {
       val i = new AtomicInteger()
       val value = Retry(
@@ -45,5 +43,14 @@ final class RetrySpec extends AnyFlatSpec {
       )
       assert(value == "recover")
     }
+  }
+
+  test("retry should recover from non-IO exceptions") {
+    val i = new AtomicInteger()
+    def throww(): Any =
+      if (i.incrementAndGet() == 5) 0
+      else ???
+    Retry(throww())
+    ()
   }
 }

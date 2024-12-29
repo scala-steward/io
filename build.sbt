@@ -80,8 +80,9 @@ val io = (project in file("io"))
     commonSettings,
     name := "IO",
     libraryDependencies ++= {
-      Vector(scalaCompiler.value % Test, scalaCheck % Test, scalatest % Test)
+      Vector(scalaCompiler.value % Test, scalaVerify % Test, scalaCheck % Test, scalatest % Test)
     } ++ Vector(swovalFiles),
+    testFrameworks += new TestFramework("verify.runner.Framework"),
     Test / fork := System.getProperty("sbt.test.fork", "false") == "true",
     Test / testForkedParallel := true,
     Compile / generateContrabands / sourceManaged := baseDirectory.value / "src" / "main" / "contraband-scala",

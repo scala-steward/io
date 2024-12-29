@@ -34,19 +34,19 @@ private[sbt] object Retry {
       excludedExceptions: Class[? <: IOException]*,
   ): T = {
     require(limit >= 1, "limit must be 1 or higher: was: " + limit)
-    def filter(e: Exception): Boolean = excludedExceptions match {
+    def filter(e: Throwable): Boolean = excludedExceptions match {
       case s if s.nonEmpty =>
         !excludedExceptions.exists(_.isAssignableFrom(e.getClass))
       case _ =>
         true
     }
     var attempt = 1
-    var firstException: IOException = null
+    var firstException: Throwable = null
     while (attempt <= limit) {
       try {
         return f
       } catch {
-        case e: IOException if filter(e) =>
+        case NonFatal(e) if filter(e) =>
           if (firstException == null) firstException = e
           // https://github.com/sbt/io/issues/295
           // On Windows, we're seeing java.nio.file.AccessDeniedException with sleep(0).
