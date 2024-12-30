@@ -240,6 +240,14 @@ class IOSpec extends AnyFunSuite {
     }
   }
 
+  test("move should overwrite") {
+    IO.withTemporaryDirectory { dir =>
+      IO.touch(dir / "a.txt")
+      IO.touch(dir / "b.txt")
+      IO.move(dir / "a.txt", dir / "b.txt")
+    }
+  }
+
   test("it should create valid jar files") {
     IO.withTemporaryDirectory { tmpdir =>
       import java.util.jar.Manifest

@@ -1116,17 +1116,17 @@ object IO {
   /**
    * Moves the contents of `a` to the location specified by `b`.
    * This method deletes any content already at `b` and creates any parent directories of `b` if they do not exist.
-   * It will first try `File.renameTo` and if that fails, resort to copying and then deleting the original file.
-   * In either case, the original File will not exist on successful completion of this method.
    */
-  def move(a: File, b: File): Unit = {
-    if (b.exists)
-      delete(b)
-    createDirectory(b.getParentFile)
-    if (!a.renameTo(b)) {
-      copyFile(a, b, true)
-      delete(a)
-    }
+  def move(a: File, b: File): Unit = move(a.toPath(), b.toPath())
+
+  /**
+   * Moves the contents of `a` to the location specified by `b`.
+   * This method deletes any content already at `b` and creates any parent directories of `b` if they do not exist.
+   */
+  def move(a: NioPath, b: NioPath): Unit = {
+    createDirectory(b.getParent().toFile())
+    Retry(Files.move(a, b, StandardCopyOption.REPLACE_EXISTING))
+    ()
   }
 
   /**
