@@ -107,6 +107,7 @@ val io = (project in file("io"))
           "1.7.0",
           "1.8.0",
           "1.9.0",
+          "1.10.0",
         ) map (version => organization.value %% moduleName.value % version)
     }),
     mimaBinaryIssueFilters ++= Seq(
