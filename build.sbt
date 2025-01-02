@@ -80,8 +80,9 @@ val io = (project in file("io"))
     commonSettings,
     name := "IO",
     libraryDependencies ++= {
-      Vector(scalaCompiler.value % Test, scalaCheck % Test, scalatest % Test)
+      Vector(scalaCompiler.value % Test, scalaVerify % Test, scalaCheck % Test, scalatest % Test)
     } ++ Vector(swovalFiles),
+    testFrameworks += new TestFramework("verify.runner.Framework"),
     Test / fork := System.getProperty("sbt.test.fork", "false") == "true",
     Test / testForkedParallel := true,
     Compile / generateContrabands / sourceManaged := baseDirectory.value / "src" / "main" / "contraband-scala",
@@ -106,6 +107,7 @@ val io = (project in file("io"))
           "1.7.0",
           "1.8.0",
           "1.9.0",
+          "1.10.0",
         ) map (version => organization.value %% moduleName.value % version)
     }),
     mimaBinaryIssueFilters ++= Seq(
